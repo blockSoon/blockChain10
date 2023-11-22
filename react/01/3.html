@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+  <body>
+
+    <div id="root">
+        <!-- 페이지 -->
+    </div>
+  </body>
+  <script type="text/babel">
+    class LoginBtn extends React.Component {
+      // 컴포넌트 생성 단계에
+      // 부모 컴포넌트에서 props를 받음
+      constructor(props) {
+        // 부모 생성자 함수 호출
+        super(props);
+        // 컴포넌트의 상태
+        // 이 컴포넌트의 상태 선언
+        this.state = {
+          isLogin: false,
+        };
+      }
+
+      render() {
+        return (
+          // html 코드를 작성할수있는데 왜? JSX구문이기 때문에 트랜스파일러가 변환 해준데.
+          // JSX html과 자바스크립트를 같이 사용할수있다. 자바스크립트 구문에 태그를 삽입 가능
+          // onclick => onClick 카멜케이스로 사용하면된다.
+          // {} 중괄호는 자바스크립트 구문을 사용하겠다는 의미 <%  %>
+          // 주의점 JSX 구문을 사용하면서 함수 실행식을 넣으면 함수를 실행하라고 하는 식으로 받아들임
+          // 함수의 값을 전달 하면 되겠죠?.
+          // {this.state.isLogin ? "Logout" : "Login"} 조건부 랜더링
+          <button
+            onClick={() => {
+              this.setState({ isLogin: !this.state.isLogin });
+            }}
+          >
+            {this.state.isLogin ? "Logout" : "Login"}
+          </button>
+        );
+      }
+    }
+
+    // 루트 요소에 컴포넌트를 보여주자
+    // 가상 DOM을 변수에 루트요소를 타겟으로 잡아서 생성
+
+    const root = ReactDOM.createRoot(document.querySelector("#root"));
+    // JSX 구문
+    // 일반적인 태그가 아닌 컴포넌트
+    // 컴포넌트에 작성한 속성은 props 값으로 전달된다.
+    // 일반적으로 우리가 HTML에서 태그를 작성했던 속성값을 주는 방식 처럼 사용할수 없다.
+    root.render(<LoginBtn id="2"></LoginBtn>);
+  </script>
+</html>

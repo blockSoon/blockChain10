@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>리액트 따라가기</title>
+  </head>
+  <body>
+    <div id="root">
+      <!-- SPA 이안의 내용물이 계속 전환되서  내용물이 바뀌어서 페이지가 전환 된것같은 효과 -->
+    </div>
+  </body>
+  <script>
+    // react는 최초에 딱 한번 root DOM을 지정한다.
+    const root = document.querySelector("#root");
+
+    // 버튼 요소 생성
+    const botton = document.createElement("button");
+    botton.addEventListener("click", (e) => {
+      if (e.target.innerHTML === "login") {
+        e.target.innerHTML = "logOut";
+      } else {
+        e.target.innerHTML = "login";
+      }
+    });
+
+    botton.innerHTML = "<div>클릭</div>";
+    root.append(botton);
+  </script>
+</html>

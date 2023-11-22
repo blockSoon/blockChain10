@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>리액트 컴포넌트</title>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script>
+    // react의 UI 단위 기본
+    // 컴포넌트
+    // 자주 사용할것 같은 UI들을 컴포넌트로 작성을 하면 된다.
+
+    // 컴포넌트에는 속성이 2가지가 있는데.
+    // react는 단방향 데이터의 흐름
+    // props는 부모 컴포넌트에서 전달받은 변수
+    // state는 내가 선언한 내 상태 변수
+
+    // class
+    // class형 컴포넌트
+    // Component 모양을 만들어 보자.
+
+    //
+    class Component {
+      target;
+      state; // 상태값 컴포넌트의 유지되는 데이터
+
+      constructor(target) {
+        this.target = target;
+        this.setup();
+        this.render();
+      }
+
+      setup() {
+        // 컴포넌트를 초기 설정 렌더링 하기 전에 동작하는 함수
+        console.log("컴포넌트 초기 세팅");
+      }
+
+      template() {
+        // 컴포넌트 HTML 템플릿을 반환 해줄거임
+        return "<div>난 타겟의 HTML 내용</div>";
+      }
+
+      render() {
+        // 컴포넌트의 타겟의 요소를 렌더링
+        this.target.innerHTML = this.template();
+        this.setEvent();
+      }
+
+      setEvent() {
+        // 컴포넌트의 이벤트 세팅
+        console.log("컴포넌트 이벤트");
+      }
+
+      // 상태를 업데이트 할때
+      setState(_state) {
+        // react는 상태값을 주시
+        // 상태가 업데이트 되면
+        this.state = { ...this.state, ..._state };
+        // 어? 상태가 변했네 해당 컴포넌트가 반응해서 다시 리렌더링.
+        // react를 다루면서 주의 해야할 부분
+        // 1. 부모 컴포넌트가 리렌더링 되면 자식 컴포넌트는 모두 리렌더링 된다.
+        // 2. 해당 컴포넌트의 상태가 업데이트 되면 리렌더링된다.
+
+        // 상태가 변해야 다시 컴포넌트를 그리고 다시 그려줘야 업데이트된 데이터가 보이겠구나.
+
+        this.render();
+        console.log("나 상태가 업데이트 됬엉~");
+      }
+    }
+
+    class VirtualDOM {
+      // 위에 작성한 컴포넌트 클래스를 상속하고 있는 클래스를 전달해서
+      constructor(component, target) {
+        // 매개변수로 전달받은 컴포넌트 클래스를 생성하면서 요소로 타겟을 전달
+        this.Component = new component(target);
+      }
+
+      render() {
+        // 컴포넌트 랜더링
+        this.Component.render();
+      }
+    }
+
+    class App extends Component {
+      setup() {
+        // 초기의 컴포넌트 상태를 세팅
+        this.state = { item: ["id 01", "pw 123"] };
+      }
+
+      template() {
+        // app의 HTML을 생성해서 반환
+        const { item } = this.state;
+        // item = ["id 01", "pw 123"]
+        return `
+            <ul>
+                ${item.map((i) => `<li>${i}</li>`)}
+            </ul>
+            <button>추가</button>
+        `;
+      }
+
+      setEvent() {
+        // App 컴포넌트 이벤트 등록
+        // react는 key로 컴포넌트를 식별 한다.
+        console.log(this.target.querySelector("button"));
+        this.target.querySelector("button").addEventListener("click", (e) => {
+          console.log("dd");
+          const { item } = this.state;
+          // 상태를 전환
+          // 버튼을 누르면 상태가 바뀌고 다시 컴포넌트를 그려준다.
+          // set 함수를 사용하는 이유
+          // state = 1
+          // set get
+          // setState
+
+          this.setState({ item: [...item, `추가 아이템 ${item.length + 1}`] });
+          console.log(this.state);
+        });
+      }
+    }
+
+    // root에 요소를 넣어서 화면을 그려주자.
+    const root = new VirtualDOM(App, document.querySelector("#root"));
+    root.render();
+
+    // class Login extends Component {}
+  </script>
+</html>
