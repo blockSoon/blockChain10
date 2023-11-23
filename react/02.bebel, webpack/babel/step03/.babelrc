@@ -1,0 +1,6 @@
+{
+  "presets": ["@babel/preset-env", "@babel/preset-react"]
+  // 일반적으로 리액트 프로젝트에는 두가지 속성을 기본구성 한다.
+  // @babel/preset-react : JSX구문을 자바스크립트 구문으로 변환에 필요한 babel플러그인
+  // (브라우저가 이해할수있는 수준의 자바스크립트로 변환)
+}

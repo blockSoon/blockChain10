@@ -1,0 +1,6 @@
+{
+  "plugins": ["@babel/plugin-transform-modules-commonjs"]
+  // plugins 사용할 플러그인
+  // @bable/plugin-transform-modules-commonjs : commonjs 형식으로 코드를 변환
+  // 최신 자바스크립트 문법으로 작성하면서 작업을 이어갈수있다.
+}
