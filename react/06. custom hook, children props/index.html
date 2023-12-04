@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+  <script>
+    // useCallback과 useMemo 함수를 쉽게 좀 이해해보자..
+    // 메모이제이션 기법은 컴퓨터 프로그렘이 동일한 계산을 반복해야할때
+    // 이전 값을 메모리에 저장해놓고 동일한 연산이 반복 수행되는것을 제거하는 목적
+    const Memo = (n) => {
+      return str(n);
+    };
+
+    // 위 코드를 메모이제이션 기법을 사용하지 않고 피보나치 수열의 n번째 값을 구하는 함수
+    // n의 값이 2또는 1이 될때 까지 계속 함수가 실행이 되는 구조인데
+    // 함수가 계속 생성되고 콜스택에 엄청많은 함수가 쌓이게 된다. (비효율성)
+
+    // 메모이제이션 기볍을 사용해서 해소
+    // 이전 값을 메모리에 저장할 공간
+    let memo = {};
+
+    const _Memo = (n) => {
+      let result;
+      // memo에 이전의 내용이 있으면
+      if (n in memo) {
+        // 함수를 호출하지 않아서 연산이 없음 결과가 같으니까 이전값 호출
+        // 함수를 호출하지 않고 이전 값을 내보내주자.
+        result = memo[n];
+      } else {
+        // 연산을 한적이 없으면 함수를 호출해서 새로운 연산의 내용을 이전값으로 저장
+        result = str(n);
+        memo[n] = result;
+      }
+      result;
+    };
+
+    const str = (n) => {
+      return n;
+    };
+  </script>
+</html>
