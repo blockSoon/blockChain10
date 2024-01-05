@@ -1,0 +1,17 @@
+{
+  "name": "03.tsconfig",
+  "version": "1.0.0",
+  "description": "- compileOptions : typescript 파일을 컴파일 할때 어떤 형태로 컴파일을 진행할지\r - include : 컴파일을 진행할 대상지정\r - exclude : 컴파일에서 제외할 대상 지정",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc && tsc-alias"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "tsc-alias": "^1.8.8",
+    "typescript": "^5.3.3"
+  }
+}

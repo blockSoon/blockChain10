@@ -1,0 +1,19 @@
+{
+  "include": ["src/**/*"],
+  "exclude": ["**/*.test.ts"],
+  "compilerOptions": {
+    "module": "CommonJS",
+    "outDir": "./dist",
+    "target": "ES6",
+    "esModuleInterop": true,
+    "strict": true,
+    "baseUrl": "./src",
+    "paths": {
+      // 경로의 별칭
+      // key = 사용할 별칭
+      // value = 실제 경로
+      // 별칭은 @로 작성해준다.
+      "@user/*": ["user/*"]
+    }
+  }
+}
