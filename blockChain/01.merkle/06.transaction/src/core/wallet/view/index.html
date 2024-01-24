@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <h1>지갑</h1>
+    <button id="walletCreateBtn">지갑 생성</button>
+    <div>
+      <ul id="walletList">
+        <li>비트코인 지갑</li>
+        <li>account : <span id="account"></span></li>
+        <li>private key : <span id="privateKey"></span></li>
+        <li>public key : <span id="publicKey"></span></li>
+        <li>balance : <span id="balance"></span></li>
+      </ul>
+      <h1>지갑 목록</h1>
+      <button id="walletListBtn">지갑 목록 조회</button>
+      <div>
+        <ul id="walletListData">
+          조회 목록 없음
+        </ul>
+      </div>
+    </div>
+  </body>
+  <script>
+    const render = (wallet) => {
+      account.innerHTML = wallet.account;
+      privateKey.innerHTML = wallet.privateKey;
+      publicKey.innerHTML = wallet.publicKey;
+      balance.innerHTML = wallet.balance;
+    };
+
+    walletCreateBtn.onclick = async () => {
+      const { data } = await axios.post("/newWallet", null);
+      console.log(data);
+      render(data);
+    };
+
+    const getWalletView = async (account) => {
+      const { data } = await axios.post("/walletSelect", { account });
+      render(data);
+    };
+
+    walletListBtn.onclick = async () => {
+      const { data } = await axios.post("/walletList");
+      // onclick 메서드에 누르면 누른 지갑의 정보를 확인 해보자
+      const list = data.map((account) => `<li onclick="getWalletView('${account}')">${account}</li>`);
+      walletListData.innerHTML = list;
+    };
+  </script>
+</html>
