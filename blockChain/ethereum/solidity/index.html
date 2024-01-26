@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.10.0/dist/web3.min.js"></script>
+  </head>
+  <body>
+    <h3>지갑들 ㅎㅎ</h3>
+    <ul id="Accounts"></ul>
+    <label for="">use Account</label><br />
+    <input type="text" id="useAccount" /><br />
+    <label for="">use contract code</label><br />
+    <textarea name="" id="contreact" cols="30" rows="10"></textarea><br />
+    <button id="sendTransactionBtn">컨트랙트 배포</button><br />
+
+    <div>카운트 Dapp</div>
+    <br />
+    <div id="counterValue"></div>
+    <br />
+    <button id="addBtn">증가</button><br />
+    <button id="miuBtn">감소</button>
+  </body>
+  <script>
+    // ganache는 기본 포트가 8545 chainId 1337
+    // npx ganache-cli --chainid 1337 --networkid 1337
+    // const web3 = new Web3("http://127.0.0.1:8545");
+    // window.ethereum
+
+    const web3 = new Web3(window.ethereum);
+    console.log(web3);
+
+    // 지갑에 요청을 보낼수 있게 지갑 연결 요청을 보내자
+    // 브라우저 보안 문제
+    // RPG
+    // eth_requestAccouts 함수 이름 알려줄게 이 함수를 호출해줘 원격 프로시저 콜
+    window.ethereum.request({ method: "eth_requestAccounts" });
+    web3.eth.getAccounts().then((accounts) => {
+      let accountBalances = "";
+      console.log(accounts);
+      accounts.forEach(async (i) => {
+        console.log(i);
+        const balance = await web3.eth.getBalance(i);
+        // wei 단위로 조회가 된다.
+        const eth_balance = await web3.utils.fromWei(balance);
+        accountBalances += `<li>${i} : ${eth_balance} ETH </li>`;
+        Accounts.innerHTML = accountBalances;
+      });
+    });
+
+    const switchChainId = () => {
+      window.ethereum.request({ method: "wallet_switchEthereumChain", params: [{ chainId: "0xaa36a7" }] });
+    };
+    switchChainId();
+    // 네트워크의 차이.. 메인넷을 사용하는 어플리케이션 테스트넷 어플리케이션
+    window.ethereum.on("chainChanged", (chainId) => {
+      console.log(`네트워크 변경됨 !! : ${chainId}`);
+      //
+      if (chainId !== "0xaa36a7") {
+        switchChainId();
+      }
+    });
+
+    const abi = [
+      { inputs: [], stateMutability: "nonpayable", type: "constructor" },
+      { inputs: [], name: "getValue", outputs: [{ internalType: "uint256", name: "", type: "uint256" }], stateMutability: "view", type: "function" },
+      { inputs: [{ internalType: "uint256", name: "_value", type: "uint256" }], name: "setValue", outputs: [], stateMutability: "nonpayable", type: "function" },
+    ];
+    sendTransactionBtn.onclick = () => {
+      // 트랜잭션의 내용을 객체로 포함 시켜준다.
+      web3.eth
+        .sendTransaction({
+          from: useAccount.value,
+          gas: "3000000",
+          data: contreact.value,
+        })
+        .then(console.log);
+    };
+
+    // 카운트 탈중앙화 데이터 조회 네트워크에 요청 보내서
+    const getValue = async () => {
+      const getCodeHash = await web3.eth.abi.encodeFunctionCall(abi[1], []);
+      const data = await web3.eth.call({ to: "0x7fA99A608e6bB1B3d3ab0CbdBc9c0A6c6B68Df82", data: getCodeHash });
+      console.log(data);
+      // 메타마스크에서 요청을 보내면 uint타입을
+      // BN
+      const result = await web3.utils.toBN(data).toString(10);
+      console.log(result);
+      return result;
+    };
+    getValue();
+
+    const setValue = async () => {
+      const _getValue = await getValue();
+      const setCodeHash = await web3.eth.abi.encodeFunctionCall(abi[2], [parseInt(_getValue) + 1]);
+      if (!useAccount.value) return alert("Account 확인하셈");
+      const tx = {
+        from: useAccount.value,
+        to: "0x7fA99A608e6bB1B3d3ab0CbdBc9c0A6c6B68Df82",
+        data: setCodeHash,
+        gas: "3000000",
+        gasPrice: "2100000000",
+      };
+      const data = await web3.eth.sendTransaction(tx);
+      console.log(data);
+      console.log(await getValue());
+    };
+    addBtn.onclick = setValue;
+  </script>
+</html>
