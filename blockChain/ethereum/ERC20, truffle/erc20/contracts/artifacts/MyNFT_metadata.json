@@ -9,12 +9,12 @@
 				"inputs": [
 					{
 						"internalType": "string",
-						"name": "name",
+						"name": "_name",
 						"type": "string"
 					},
 					{
 						"internalType": "string",
-						"name": "symbol",
+						"name": "_symbol",
 						"type": "string"
 					}
 				],
@@ -280,6 +280,19 @@
 				"type": "function"
 			},
 			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "tokenURI",
+						"type": "string"
+					}
+				],
+				"name": "minting",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
 				"inputs": [],
 				"name": "name",
 				"outputs": [
@@ -366,6 +379,29 @@
 				"inputs": [
 					{
 						"internalType": "address",
+						"name": "owner",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "operator",
+						"type": "address"
+					},
+					{
+						"internalType": "bool",
+						"name": "approved",
+						"type": "bool"
+					}
+				],
+				"name": "setAppAll",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
 						"name": "operator",
 						"type": "address"
 					},
@@ -416,7 +452,7 @@
 				"inputs": [
 					{
 						"internalType": "uint256",
-						"name": "tokenId",
+						"name": "_tokenId",
 						"type": "uint256"
 					}
 				],
@@ -571,9 +607,6 @@
 				"symbol()": {
 					"details": "See {IERC721Metadata-symbol}."
 				},
-				"tokenURI(uint256)": {
-					"details": "See {IERC721Metadata-tokenURI}."
-				},
 				"transferFrom(address,address,uint256)": {
 					"details": "See {IERC721-transferFrom}."
 				}
@@ -588,7 +621,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/SoonToken.sol": "SoonToken"
+			"contracts/SoonToken.sol": "MyNFT"
 		},
 		"evmVersion": "shanghai",
 		"libraries": {},
@@ -603,11 +636,11 @@
 	},
 	"sources": {
 		"contracts/SoonToken.sol": {
-			"keccak256": "0x6072f8906b1c626d64bc271632b856161c9a053ace32f3a1dad00852716c72a7",
+			"keccak256": "0xb007df4de2b9dd4806b9cf031f22751a9ff2b166ae9f8075edf30916e133bc1d",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://b7afe5031312daafad8468da500f125989eb3479547bd44d213798e2184329b8",
-				"dweb:/ipfs/QmfZhPL4ZuaGXBfqC18QBmotsfbguADtqaPRzDpzeYqC2o"
+				"bzz-raw://db53d5d4ea9e6a6c857acecf89dec22626453e1a1535cd4739e76ebabba325e2",
+				"dweb:/ipfs/QmfKHbdKFubJLWNTw2ViXMYAxQNk2tEQ8MyReZqifVUWMH"
 			]
 		},
 		"node_modules/@openzeppelin/contracts/interfaces/draft-IERC6093.sol": {
