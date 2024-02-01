@@ -161,6 +161,19 @@
 				"inputs": [
 					{
 						"internalType": "address",
+						"name": "_address",
+						"type": "address"
+					}
+				],
+				"name": "_mints",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
 						"name": "owner",
 						"type": "address"
 					},
@@ -556,11 +569,11 @@
 			]
 		},
 		"@openzeppelin/contracts/token/ERC20/ERC20.sol": {
-			"keccak256": "0xc3e1fa9d1987f8d349dfb4d6fe93bf2ca014b52ba335cfac30bfe71e357e6f80",
+			"keccak256": "0xffc602525ea5850682d8383ba9751c036bf54745a20cc84d0b67cf4668612e5c",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://c5703ccdeb7b1d685e375ed719117e9edf2ab4bc544f24f23b0d50ec82257229",
-				"dweb:/ipfs/QmTdwkbQq7owpCiyuzE7eh5LrD2ddrBCZ5WHVsWPi1RrTS"
+				"bzz-raw://c13aa534c2e341002b86bb1770fe97065e3fba7a25fd092051adba1bbff04a62",
+				"dweb:/ipfs/QmUEGdMRmRaHPvA6NQPHdXtHV237CWcm56qCzjHL8Gc6gu"
 			]
 		},
 		"@openzeppelin/contracts/token/ERC20/IERC20.sol": {
